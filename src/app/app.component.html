@@ -1,0 +1,14 @@
+<div class="app-container">
+  <app-header></app-header>
+  
+  <div class="main-layout">
+    <app-sidebar></app-sidebar>
+    
+    <main class="main-content" [class.sidebar-collapsed]="sidebarCollapsed">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  
+  <app-footer></app-footer>
+  <app-underwriter-assist></app-underwriter-assist>
+</div>

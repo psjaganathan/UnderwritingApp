@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="12" fill="#1976d2"/>
+  <!-- Document -->
+  <rect x="16" y="18" width="20" height="28" rx="3" fill="#fff" stroke="#fff" stroke-width="2"/>
+  <rect x="20" y="24" width="12" height="2" rx="1" fill="#1976d2"/>
+  <rect x="20" y="30" width="12" height="2" rx="1" fill="#1976d2"/>
+  <rect x="20" y="36" width="8" height="2" rx="1" fill="#1976d2"/>
+  <!-- Shield -->
+  <path d="M44 22c0 8-4 14-8 16-4-2-8-8-8-16v-2l8-4 8 4v2z" fill="#fff" stroke="#fff" stroke-width="2"/>
+  <!-- Checkmark -->
+  <path d="M38 28l-3 3-2-2" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

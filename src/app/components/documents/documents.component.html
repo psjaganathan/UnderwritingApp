@@ -1,0 +1,86 @@
+<div class="documents-container">
+  <div class="documents-header">
+    <div class="header-left">
+      <button mat-icon-button (click)="goBack()" class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div class="header-info">
+        <h1>Generated Documents</h1>
+        <p *ngIf="creditMemo">{{ creditMemo.id }} - {{ creditMemo.title }}</p>
+      </div>
+    </div>
+    
+    <div class="header-actions">
+      <button mat-raised-button 
+              color="primary" 
+              [disabled]="selectedDocuments.length === 0"
+              (click)="releaseSelectedDocuments()">
+        <mat-icon>send</mat-icon>
+        Release Selected ({{ selectedDocuments.length }})
+      </button>
+    </div>
+  </div>
+
+  <div class="documents-toolbar">
+    <div class="toolbar-left">
+      <mat-checkbox 
+        [checked]="selectedDocuments.length === documents.length && documents.length > 0"
+        [indeterminate]="selectedDocuments.length > 0 && selectedDocuments.length < documents.length"
+        (change)="selectAllDocuments()">
+        Select All
+      </mat-checkbox>
+    </div>
+    
+    <div class="toolbar-right">
+      <span class="document-count">{{ documents.length }} documents</span>
+    </div>
+  </div>
+
+  <div class="documents-grid">
+    <mat-card *ngFor="let document of documents" class="document-card mat-elevation-z3" [ngClass]="{'selected': selectedDocuments.includes(document.id)}">
+      <div class="document-header">
+        <div class="document-selection">
+          <mat-checkbox 
+            [checked]="selectedDocuments.includes(document.id)"
+            (change)="toggleDocumentSelection(document.id)">
+          </mat-checkbox>
+        </div>
+        <div class="document-info">
+          <h3>{{ document.name }}</h3>
+          <p class="document-type">{{ document.type }}</p>
+        </div>
+        <div class="document-actions">
+          <button mat-icon-button color="primary" (click)="viewDocument(document)" matTooltip="View Document">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="removeDocument(document.id)" matTooltip="Remove Document">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="document-details">
+        <div class="detail-item">
+          <span class="label">Template:</span>
+          <span class="value">{{ document.template }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Generated:</span>
+          <span class="value">{{ formatDate(document.generatedDate) }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Status:</span>
+          <mat-chip [color]="getStatusColor(document.status)" selected class="status-chip">
+            {{ document.status }}
+          </mat-chip>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div *ngIf="documents.length === 0" class="no-documents">
+    <mat-icon>description</mat-icon>
+    <h3>No documents found</h3>
+    <p>No documents have been generated for this credit memo yet.</p>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div *ngIf="isOpen" class="assist-bot expanded" [ngStyle]="{top: position.top + 'px', left: position.left + 'px', width: width + 'px', height: height + 'px', position: 'fixed', zIndex: 1000}">
+  <div class="assist-header" (mousedown)="startDrag($event)">
+    <mat-icon>smart_toy</mat-icon>
+    <span>Underwriter Assist</span>
+    <button mat-icon-button (click)="toggleAssist()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="assist-body">
+    <div class="context-attach">
+      <button mat-stroked-button color="primary" (click)="attachContext(attachedContext)">
+        <mat-icon>attach_file</mat-icon> Attach Context
+      </button>
+      <input matInput placeholder="Context (text or file ref)" [(ngModel)]="attachedContext">
+    </div>
+    <div class="chat-window">
+      <div *ngFor="let item of chatHistory" class="chat-history-item">
+        <div class="chat-prompt"><strong>You:</strong> {{ item.prompt }}</div>
+        <div class="chat-response"><strong>Assist:</strong> {{ item.response }}</div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <textarea matInput placeholder="Type your question..." [(ngModel)]="userMessage" rows="1" (input)="autoGrow($event)" (keydown)="onInputKeydown($event)"></textarea>
+      <button mat-icon-button color="primary" (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+    <div class="resize-handle right" (mousedown)="startResize($event, 'right')"></div>
+    <div class="resize-handle left" (mousedown)="startResize($event, 'left')"></div>
+    <div class="resize-handle bottom" (mousedown)="startResize($event, 'bottom')"></div>
+    <div class="resize-handle top" (mousedown)="startResize($event, 'top')"></div>
+  </div>
+</div>

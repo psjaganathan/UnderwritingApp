@@ -1,0 +1,24 @@
+<div class="upload-memo-dialog">
+  <span mat-dialog-title>Upload Credit Memo</span>
+  <mat-dialog-content>
+    <form style="padding:5px">
+      <mat-form-field  appearance="outline" class="full-width">
+        <mat-label>File Path (PDF, DOC, DOCX only)</mat-label>
+        <input matInput type="text" [(ngModel)]="filePath" name="filePath" placeholder="Enter file path or browse..." class="path-input" />
+      </mat-form-field>
+      <input type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" (change)="onFileChange($event)" style="display:none" #fileInput />
+      <button mat-stroked-button color="primary" type="button" (click)="fileInput.click()" style="margin-bottom: 16px;">Browse</button>
+    </form>
+    <div *ngIf="errorMsg" class="error" style="margin-top: 8px;">{{ errorMsg }}</div>
+    <div *ngIf="uploadStatus === 'success'" class="upload-success" style="margin-top: 8px; color: #388e3c;">
+      {{ uploadMessage }}
+    </div>
+    <div *ngIf="uploadStatus === 'error'" class="upload-error" style="margin-top: 8px; color: #d32f2f;">
+      {{ uploadMessage }}
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button color="warn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onUpload()" [disabled]="!filePath && !selectedFile">Upload</button>
+  </mat-dialog-actions>
+</div>

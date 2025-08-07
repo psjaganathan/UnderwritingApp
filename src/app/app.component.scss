@@ -1,0 +1,46 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-layout {
+  display: flex;
+  flex: 1;
+  margin-top: 64px;
+  margin-bottom: 48px;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 300px;
+  transition: margin-left 0.3s ease;
+  overflow-y: auto;
+  background-color: #fafafa;
+  height: calc(100vh - 112px);
+  
+  &.sidebar-collapsed {
+    margin-left: 64px;
+  }
+}
+
+// Responsive design
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 0 !important;
+    
+    &.sidebar-collapsed {
+      margin-left: 64px !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    
+    &.sidebar-collapsed {
+      margin-left: 0;
+    }
+  }
+}

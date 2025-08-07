@@ -1,0 +1,94 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Underwriter Dashboard</h1>
+  </div>
+
+  <div class="dashboard-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 16px;">
+    <div class="filter-section" style="margin-bottom: 0;">
+      <mat-form-field appearance="outline" class="filter-select">
+        <mat-label>Filter by Status</mat-label>
+        <mat-select [(ngModel)]="selectedFilter" (selectionChange)="onFilterChange()">
+          <mat-option value="all">
+            All Memos ({{ getFilterCount('all') }})
+          </mat-option>
+          <mat-option value="pending">
+            Docs Creation Pending ({{ getFilterCount('pending') }})
+          </mat-option>
+          <mat-option value="ready">
+            Ready to Release ({{ getFilterCount('ready') }})
+          </mat-option>
+          <mat-option value="released">
+            Docs Released ({{ getFilterCount('released') }})
+          </mat-option>
+          <mat-option value="failed">
+            Docs Generation Failed ({{ getFilterCount('failed') }})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" (click)="uploadNewMemo()" class="upload-button">
+      <mat-icon>upload</mat-icon>
+      Upload Credit Memo
+    </button>
+  </div>
+
+  <div class="dashboard-grid">
+    <mat-card *ngFor="let memo of filteredMemos" class="memo-card" [ngStyle]="{'--status-order': getStatusOrder(memo.status)}">
+      <mat-card-header>
+        <mat-card-title style="position: relative; width: 100%; display: block;">
+          <span class="memo-id">{{ memo.id }}</span>
+          <span class="memo-title">{{ memo.title }}</span>
+          <mat-chip color="accent" selected >
+            {{ memo.status }}
+          </mat-chip>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <div> {{ formatDate(memo.approvalDate) }}</div>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="memo-details">
+          <div class="detail-row">
+            <span class="label">Amount:</span>
+            <span class="value">{{ formatCurrency(memo.approvedAmount) }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Borrower:</span>
+            <span class="value">{{ memo.borrower }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Underwriter:</span>
+            <span class="value">{{ memo.underwriter }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Documents:</span>
+            <span class="value">
+              <mat-chip *ngIf="memo.documentsGenerated" color="accent" selected>
+                {{ memo.documentsCount }} Generated
+              </mat-chip>
+              <span *ngIf="!memo.documentsGenerated" class="no-docs">Not Generated</span>
+            </span>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="viewMemo(memo)">
+          <mat-icon>visibility</mat-icon>
+          View
+        </button>
+        <button *ngIf="memo.documentsGenerated" 
+                mat-button color="accent" 
+                (click)="viewDocuments(memo)">
+          <mat-icon>description</mat-icon>
+          Docs
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div *ngIf="filteredMemos.length === 0" class="no-results">
+    <mat-icon>search_off</mat-icon>
+    <h3>No memos found</h3>
+    <p>No credit memos match the selected filter criteria.</p>
+  </div>
+</div>

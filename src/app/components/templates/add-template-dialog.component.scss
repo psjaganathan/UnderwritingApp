@@ -1,0 +1,19 @@
+.add-template-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 350px;
+  max-width: 500px;
+  padding: 8px 0 0 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
